@@ -1,0 +1,52 @@
+3.0.0.0 12/07/2016 Git version control add 
+-------------------------------------------
+2.9.2 01/07/2016 Minor updata - refine the UI
+2.9 21/04/2016 Major update - 1. create a new class for order. 2. update ourProduct class - add QTY 3. DataBase update - order, project_order tables
+-------------------------------------------
+2.8 14/04/2016 Major update - 1. Badge function works properly
+2.7 14/04/2016 Major update - 1. pickdate was done!
+2.6 14/04/2016 Major update - 1.[Bug][Manage Account] nothing update show fail. (include 07/04/2016 practice)
+-------------------------------------------
+07/04/2016 - The practice of animation, badge and datepicker.
+-------------------------------------------
+31/03/2016 - IIS service practice
+-------------------------------------------
+24/03/2016 - Jquery practice - animation
+-------------------------------------------
+2.5 17/03/2016 Major update - [Logic] Pop message when customer add a duplicated item. (banned duplication).
+2.4 17/03/2016 Minor update - Javascript pracitce - animation of star
+-----------------------------------------
+2.3 10/03/2016 Minor update - Changed the account manage from grid view to detail view
+2.2 10/03/2016 Major update - Account Manager - DOB update problem fixed.
+2.1 10/03/2016 Major update - Login page logic issue fixed.
+2.0 10/03/2016 Minor update - AJAX popup close works
+-----------------------------------------
+1.9 25/02/2016 Mjjor update - 1. AJAX tool kit practice, popup.
+1.8 25/02/2016 Major update - 1. The customer update info function was fully completed with data validation.
+1.7 25/02/2016 Major update - 1. add detail view for product detail.
+-----------------------------------------
+1.6 17/02/2016 Minor update - add debug mode for login
+1.5 17/02/2016 Major update - 1. Registration page was done! [Database<-> customer<-> useraccount]
+-----------------------------------------
+1.4 10/02/2016 minor update - 1. start to work on register and add random ID generate
+1.3 10/02/2016 major update - 1. show about empty and non empty start to identify the cart 2. show total cost and QTY function 
+1.2 10/02/2016 major update - 1. show the shopping list, and remove function. 2. ourProduct - remove function
+-----------------------------------------
+1.1 04/02/2016 mojor update - get DataKey to add to cart
+1.0 03/02/2016 major update - sqlaccess.cs in product functions; add ourproduct.cs; show product properly.
+0.9a 03/02/2016 minor update - sqlaccess.cs
+-----------------------------------------
+0.8c 29/01/2016 edit works - fix double click issue( DataBind issue - https://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.gridview.rowediting.aspx)
+0.8b 29/01/2016 edit works - double click bug
+0.8a 22/01/2016 last version
+0.7 make link work properly, recorderview.
+----------------------------------------
+0.6b fix the panel issue
+0.6a make update workable (but has bug in updatepanel and bootstrap)
+-----------------------------------------
+0.5 sql integrated, display, mode check.
+0.4 Rebuild the websit using new methods such as session.(without cookies)
+----------------
+0.3 Updatepanel works
+0.2 DataGrid show
+0.1 First version

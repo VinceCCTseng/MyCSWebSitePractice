@@ -1,0 +1,183 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - IT Support</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <link rel="stylesheet" type="text/css" href="css/mystyles.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.4.custom.min.css"  />
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+   
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />                                
+                <asp:ScriptReference Name="jquery.ui.combined" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        <script type="text/javascript" src="/Scripts/myJSFile.js" ></script>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">A Plus Centre</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class ="dropdown">
+                            <a class="dropdown-toggle" data-toggle ="dropdown" href="#">Menu<span class="caret "></span></a>
+                                <ul class ="dropdown-menu">
+                                    <li><a runat="server" href="~/default.aspx">Home</a></li>
+                                    <li><a runat="server" href="~/Product/Product.aspx">Product</a></li>
+                                    <li><a runat="server" href="~/Product/History.aspx">History</a></li>
+                                </ul>
+                        </li>
+                        <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                    </ul>
+                    <asp:UpdatePanel ID="updLoginStatus" runat="server" UpdateMode="Conditional" RenderMode="Inline">
+                        <ContentTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                
+                                <li><asp:HyperLink ID="HyperLinkCartNoticeEmpty" runat="server" NavigateUrl="~/Product/ShoppingCart"><span class="glyphicon glyphicon-star-empty" style="font-size:20px;"></span></asp:HyperLink></li>
+                                <li><asp:HyperLink ID="HyperLinkCartNotice" runat="server" NavigateUrl="~/Product/ShoppingCart"><span id="myStar" class="glyphicon glyphicon-star" style="font-size:20px;position:relative;"></span><span id="badgeItem" class="badge"><asp:Label ID="LblNumberOfItems" runat="server" Text=" "></asp:Label></span></asp:HyperLink></li>                                
+                                <li><asp:HyperLink ID="HyperLinkLabel" runat="server" NavigateUrl="#"></asp:HyperLink></li>
+                                <li><asp:HyperLink ID="HyperLinkRegister" runat="server" NavigateUrl="~/Account/Register">Register</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="HyperLinkLogin" runat="server" NavigateUrl="~/Account/Login">Log in</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="HyperLinkManage" runat="server" NavigateUrl="~/Account/Manage">Setting </asp:HyperLink></li>
+                                <li><asp:LinkButton ID="LinkBtnLogout" runat="server" OnClick="LinkBtnLogout_Click">Logout</asp:LinkButton></li>                                
+                            </ul>
+                         </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                        <%--<li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %>!</a></li>--%>
+                   
+<%--                    (old version for Microsoft version)
+    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %>!</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>--%>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <%-- Loading animation --%>
+                <asp:UpdateProgress ID="UpdateProgressLoading" runat="server" AssociatedUpdatePanelID="updLoginStatus">
+                        <ProgressTemplate> 
+                            <div class="modal">
+                                <div class="center">
+                                    <div id="theprogress">
+                                        <img src="/Image/ajax-loader.gif" />
+                                    </div>
+                                </div>
+                            </div>
+                        </ProgressTemplate>
+                </asp:UpdateProgress>
+            <%-- Loading animation --%>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <asp:ContentPlaceHolder ID="pbsa" runat="server" >
+
+                <p> ---------- </p>
+            </asp:ContentPlaceHolder>
+            <footer>
+                <asp:Literal ID="LiteralYear" runat="server"></asp:Literal>
+            </footer>
+            
+        </div>
+        <%-- PopUp area --%>
+         <asp:Button ID="btnPOPInfo" runat="server" Style="display: none" />
+       <ajaxToolkit:ModalPopupExtender runat="server" ID="popInfo" TargetControlID="btnPOPInfo" PopupControlID="pnlPOPInfo" BackgroundCssClass="modalBackground" OkControlID="btnOkay">
+       </ajaxToolkit:ModalPopupExtender>
+       <asp:Panel ID="pnlPOPInfo" runat="server" CssClass="mymodal" role="dialog" Style="display: none">
+              <div class="modal-dialog modal-sm">
+                     <div class="modal-content">
+                           <div class="modal-header">
+                                  <button id="btnOkay" type="button" class="close">
+                                         <span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title" id="gridSystemModalLabel">
+                                         <asp:UpdatePanel ID="updIH" runat="server" UpdateMode="conditional" RenderMode="Inline">
+                                                <ContentTemplate>
+                                                       <asp:Literal ID="ltrInfoHeading" runat="server" Text="" />
+                                                </ContentTemplate>
+                                         </asp:UpdatePanel>
+                                  </h4>
+                           </div>
+                           <div class="modal-body">
+                                  <div class="container-fluid">
+                                         <div class="row">
+                                                <div>
+                                                       <asp:UpdatePanel ID="updInfomation" runat="server" UpdateMode="conditional">
+                                                              <ContentTemplate>
+                                                                     <asp:Label ID="lblInformationMessage" runat="server" Text="" SkinID="none"></asp:Label>
+                                                              </ContentTemplate>
+                                                       </asp:UpdatePanel>
+                                                </div>
+                                         </div>
+                                  </div>
+                           </div>
+                           <div class="modal-footer">
+                                  <asp:UpdatePanel ID="updCheckoutBtn" runat="server" UpdateMode="Conditional" RenderMode="Inline">
+                                         <ContentTemplate>
+                                                <asp:Button ID="btnModalClose" runat="server" EnableViewState="false" CssClass="btn btn-default" Text="Close" data-dismiss="modal" OnClick="btnModalClose_Onclick"/>
+                                                <asp:Button ID="btnCheckout" runat="server" Text="Checkout" CssClass="btn btn-primary" PostBackUrl="/checkout.aspx" Visible="false" /></ContentTemplate>
+                                         <Triggers>
+                                                <asp:PostBackTrigger ControlID="btnCheckout" />
+                                         </Triggers>
+                                  </asp:UpdatePanel>
+                           </div>
+                     </div>
+                     <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+       </asp:Panel>
+                <%-- PopUp area --%>
+    </form>
+</body>
+</html>
