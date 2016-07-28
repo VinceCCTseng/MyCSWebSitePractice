@@ -67,6 +67,7 @@
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
+
                         <asp:Table ID="TblDetailCost" runat="server" CssClass="table table-hover" >
                             <asp:TableRow ID="Gst">
                                 <asp:TableCell>GST</asp:TableCell>

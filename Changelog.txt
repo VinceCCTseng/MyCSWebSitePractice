@@ -1,3 +1,5 @@
+3.0.0.1 28/07/2016 Minor update + comment + knockout embedded 
+-------------------------------------------
 3.0.0.0 12/07/2016 Git version control add 
 -------------------------------------------
 2.9.2 01/07/2016 Minor updata - refine the UI

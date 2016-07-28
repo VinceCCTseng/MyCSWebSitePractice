@@ -116,11 +116,13 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
         }
         else
         {
-            //to do clean session
+            //to do clean session // fix the problem when all item remove the table, checkout button still exist 
             gvShopping.DataSource = null;
             gvShopping.DataBind();
             Master.UpdateLoginStatus();
             LiteralMessages.Text = "There is not any item in the cart :( ";
+            TblDetailCost.Visible = false;
+            BtnCheckout.Visible = false;
         }
 
     }
