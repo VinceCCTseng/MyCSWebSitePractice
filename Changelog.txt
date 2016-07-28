@@ -1,3 +1,4 @@
+3.0.0.2 28/07/2016 Knockout works, but it's buggy.
 3.0.0.1 28/07/2016 Minor update + comment + knockout embedded 
 -------------------------------------------
 3.0.0.0 12/07/2016 Git version control add 

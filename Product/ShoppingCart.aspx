@@ -2,6 +2,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ MasterType VirtualPath="~/Site.master" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
         <div class="container">
         <div class="jumbotron">
@@ -13,6 +14,8 @@
 
                     <ContentTemplate>
                         <asp:Literal ID="LiteralMessages" runat="server"></asp:Literal>
+                        <%-- make it easy to retrive total cost --%>
+                        <%--<asp:Label ID="LblHiddenPrice" ClientIDMode ="Static" runat="server" Text="" ></asp:Label>--%>
                     <asp:GridView ID="gvShopping" runat="server" Width="100%" AutoGenerateColumns="False" ShowFooter="True"  DataKeyNames="Price" CssClass="table table-hover">
                             <Columns>
                     <asp:TemplateField>
@@ -62,29 +65,29 @@
                                                 <asp:TextBox ID="TextBoxQTY" runat="server" OnTextChanged="gvShopping_QTYUpdated" TextMode="Number" AutoPostBack="True">1</asp:TextBox>                                
                                         </ItemTemplate>
                                     <FooterTemplate>
-                                        <div><asp:Literal ID="LiteralTotalPrice" runat="server" Text="n/a"></asp:Literal></div>                                        
+                                        <div> Inc. GST $<asp:Label ID="LblTotalPrice" runat="server" Text="" ClientIDMode="Static"></asp:Label> AUD </div>                                        
                                     </FooterTemplate>                        
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
-
+                        
                         <asp:Table ID="TblDetailCost" runat="server" CssClass="table table-hover" >
                             <asp:TableRow ID="Gst">
-                                <asp:TableCell>GST</asp:TableCell>
-                                <asp:TableCell>$</asp:TableCell>
+                                <asp:TableCell>GST:</asp:TableCell>
+                                <asp:TableCell>$ <span data-bind="text: showGst"></span></asp:TableCell>
                             </asp:TableRow>
                             <asp:TableRow ID="excGst">
                                 <asp:TableCell>Exc. GST</asp:TableCell>
-                                <asp:TableCell>$</asp:TableCell>
+                                <asp:TableCell>$ <span data-bind="text: showExcGstTotal"></span></asp:TableCell>
                             </asp:TableRow>
                             <asp:TableRow ID="DeliFee">
                                 <asp:TableCell>Delivery Fee</asp:TableCell>
-                                <asp:TableCell>$</asp:TableCell>
+                                <asp:TableCell>$ <span data-bind="text: showDeliverFee"></span></asp:TableCell>
                             </asp:TableRow>
                             <%-- Future feature (Voucher)  --%>
                             <asp:TableRow ID="Grand">
                                 <asp:TableCell>GrandTotal</asp:TableCell>
-                                <asp:TableCell>$</asp:TableCell>
+                                <asp:TableCell>$ <span data-bind="text: showGrandTotal"></span></asp:TableCell>
                             </asp:TableRow>
                         </asp:Table>
                         <asp:Button ID="BtnCheckout" CssClass="btn btn-primary" runat="server" Text="Checkout" OnClick="OnClick_Checkout"/>                          
@@ -96,7 +99,7 @@
 
                     </ContentTemplate>
                  </asp:UpdatePanel>
-
+             
          </div>
 
         </div>

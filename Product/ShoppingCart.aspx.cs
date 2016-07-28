@@ -89,8 +89,9 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
             totalcost += int.Parse(gvShopping.DataKeys[i].Values["Price"].ToString()) * int.Parse(tb.Text.ToString());
         }
         Session[_totalCost] = totalcost;
-        Literal literalTotalPrice = (Literal)gvShopping.FooterRow.FindControl("LiteralTotalPrice");
-        literalTotalPrice.Text = "Inc. GST $ " + totalcost.ToString() + " AUD";  
+        Label LblTotalPrice = (Label)gvShopping.FooterRow.FindControl("LblTotalPrice");
+        LblTotalPrice.Text =  totalcost.ToString();
+
         // II. Show GST 0.909 + shipping +
 
         // III. Voucher

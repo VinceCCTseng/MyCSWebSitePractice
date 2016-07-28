@@ -44,6 +44,10 @@
         <%-- myJSFile provide the animation for the star (shopping cart) and the badge --%>
         <script type="text/javascript" src="/Scripts/myJSFile.js" ></script>
 
+        <script type="text/javascript" src="/Scripts/knockout-3.4.0.js"></script>
+        <script type="text/javascript" src="/Scripts/ShoppingCart.js" ></script>
+
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">

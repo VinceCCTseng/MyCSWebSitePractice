@@ -18,9 +18,9 @@ function addStarChangingColour(e) {
     }
     $('#myStar').css("color", "grey");
     //--------------badge-----------------
-    console.log('you clicked: updateNumberOfGood [1]');
+    //console.log('you clicked: updateNumberOfGood [1]');
     var badge = window.document.getElementById('badgeItem');
-    console.log('you clicked: updateNumberOfGood [1]' + '[2]' + +badge + '[3]' );
+    //console.log('you clicked: updateNumberOfGood [1]' + '[2]' + +badge + '[3]' );
     badge= 2;
 }
 
@@ -88,7 +88,7 @@ function removeStarChangingColourOld(e) {
                 console.log("in" + _fontsize);
             }
         }
-        console.log('the color is now set to: ' + window.document.getElementById('myStar').style.color);
+        //console.log('the color is now set to: ' + window.document.getElementById('myStar').style.color);
     }
 }
 
@@ -98,7 +98,7 @@ function PickDob(e) {
     var currentDateString = (window.document.getElementById('txtdob').value).split("-");
     var curDate = new Date(currentDateString[2], currentDateString[1] - 1, currentDateString[0]);
     var selectDate = new Date();
-    console.log('you clicked PickDob: ' + curDate);
+    //console.log('you clicked PickDob: ' + curDate);
 
     $('#txtdob').datepicker({
         dateFormat: 'mm-dd-yy',
@@ -111,13 +111,13 @@ function PickDob(e) {
         }
     });
 
-    console.log('[Log 2]you clicked PickDob: ');
+    //console.log('[Log 2]you clicked PickDob: ');
     $('#txtdob').datepicker('setDate', curDate);
-    console.log('[Log 3]you clicked PickDob: ');
+    //console.log('[Log 3]you clicked PickDob: ');
     selectDate = $('#txtdob').datepicker('show');
-    console.log('[Log 4]you clicked PickDob: ' + selectDate);
+    //console.log('[Log 4]you clicked PickDob: ' + selectDate);
     //$('#txtdob').datepicker('remove');
-    console.log('[Log 5]you clicked PickDob: ');
+    //console.log('[Log 5]you clicked PickDob: ');
 }
 //old - JavaScript
 //Add function for the shopping cart star
