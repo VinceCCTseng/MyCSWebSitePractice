@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for customerOrder
+/// CO is mainly for the orders, which has already done. (retrieve usage)
 /// </summary>
 public class customerOrder
 {

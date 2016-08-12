@@ -12,7 +12,7 @@ using System.Threading;
 public partial class Account_Login : System.Web.UI.Page
 {
     string _MemberID;
-    bool debugmode = true; // Release version should be "false"
+    bool debugmode = false; // Release version should be "false"
     MasterPage myMaster;
     protected void Page_Load(object sender, EventArgs e)
     {

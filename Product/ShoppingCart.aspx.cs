@@ -27,8 +27,7 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
                 BtnCheckout.Visible = false;
             }            
         }
-        else
-        { }
+
     }
     // remove item and update the session
     public void lkbtnremove_onclick(object sender, EventArgs e)
@@ -75,7 +74,8 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
     //
     public void CalTotalPrice(object sender, EventArgs e)
     {
-        int numberofProduct = 0, totalcost = 0;
+        int numberofProduct = 0;
+        double totalcost = 0;
         ourProductlist ashoppinglist = (ourProductlist)Session[_currentShoppingList];
         numberofProduct = ashoppinglist.getProductCount();
 
@@ -86,15 +86,18 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
             if (int.Parse(tb.Text) < 1)
                 tb.Text = "1";
 
-            totalcost += int.Parse(gvShopping.DataKeys[i].Values["Price"].ToString()) * int.Parse(tb.Text.ToString());
+            totalcost += double.Parse(gvShopping.DataKeys[i].Values["Price"].ToString()) * int.Parse(tb.Text.ToString());
         }
         Session[_totalCost] = totalcost;
         Label LblTotalPrice = (Label)gvShopping.FooterRow.FindControl("LblTotalPrice");
         LblTotalPrice.Text =  totalcost.ToString();
 
         // II. Show GST 0.909 + shipping +
+        LbGST.Text = (totalcost * 0.091).ToString();
+        LbExGST.Text = (totalcost * 0.909).ToString();
+        LbDeliFee.Text = "20.00";
+        LbGrandTotal.Text = (totalcost + double.Parse(LbDeliFee.Text)).ToString();
 
-        // III. Voucher
     }
     //
     protected void gvShopping_QTYUpdated(object sender, EventArgs e)

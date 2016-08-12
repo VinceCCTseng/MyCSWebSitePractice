@@ -68,10 +68,39 @@
                                         <div> Inc. GST $<asp:Label ID="LblTotalPrice" runat="server" Text="" ClientIDMode="Static"></asp:Label> AUD </div>                                        
                                     </FooterTemplate>                        
                                 </asp:TemplateField>
+<%--                                <asp:TemplateField>
+                                    <ItemTemplate>
+
+                                        <button  onclick="javascript:window.document.getElementById('LblTotalPrice').innerText = '1000'" >Click</button>
+                                    </ItemTemplate>
+
+                                </asp:TemplateField>--%>
+
                             </Columns>
                         </asp:GridView>
                         
                         <asp:Table ID="TblDetailCost" runat="server" CssClass="table table-hover" >
+                            <asp:TableRow ID="Gst">
+                                <asp:TableCell>GST:</asp:TableCell>
+                                <asp:TableCell>$ <asp:Label ID="LbGST" runat="server" Text=""></asp:Label></asp:TableCell>
+                            </asp:TableRow>
+                            <asp:TableRow ID="excGst">
+                                <asp:TableCell>Exc. GST</asp:TableCell>
+                                <asp:TableCell>$ <asp:Label ID="LbExGST" runat="server" Text=""></asp:Label></asp:TableCell>
+                            </asp:TableRow>
+                            <asp:TableRow ID="DeliFee">
+                                <asp:TableCell>Delivery Fee</asp:TableCell>
+                                <asp:TableCell>$ <asp:Label ID="LbDeliFee" runat="server" Text=""></asp:Label></asp:TableCell>
+                            </asp:TableRow>
+                            <%-- Future feature (Voucher)  --%>
+                            <asp:TableRow ID="Grand">
+                                <asp:TableCell>GrandTotal</asp:TableCell>
+                                <asp:TableCell>$ <asp:Label ID="LbGrandTotal" runat="server" Text=""></asp:Label></asp:TableCell>
+                            </asp:TableRow>
+                        </asp:Table>
+
+                        <%-- knockout version (but not working properly.
+                        <asp:Table ID="Table1" runat="server" CssClass="table table-hover" >
                             <asp:TableRow ID="Gst">
                                 <asp:TableCell>GST:</asp:TableCell>
                                 <asp:TableCell>$ <span data-bind="text: showGst"></span></asp:TableCell>
@@ -84,17 +113,75 @@
                                 <asp:TableCell>Delivery Fee</asp:TableCell>
                                 <asp:TableCell>$ <span data-bind="text: showDeliverFee"></span></asp:TableCell>
                             </asp:TableRow>
-                            <%-- Future feature (Voucher)  --%>
+                            <%-- Future feature (Voucher) 
                             <asp:TableRow ID="Grand">
                                 <asp:TableCell>GrandTotal</asp:TableCell>
                                 <asp:TableCell>$ <span data-bind="text: showGrandTotal"></span></asp:TableCell>
                             </asp:TableRow>
-                        </asp:Table>
+                        </asp:Table>--%>
+
                         <asp:Button ID="BtnCheckout" CssClass="btn btn-primary" runat="server" Text="Checkout" OnClick="OnClick_Checkout"/>                          
                         <%-- popup --%>
-<%--                    <ajaxToolkit:PopupControlExtender ID="PopupControlForMember" Position="Center" PopupControlID ="PopCtl" TargetControlID ="PopTag" runat="server">
+                        <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtenderCheckout" runat="server"
+                            TargetControlID ="BtnCheckout"
+                            PopupControlID = "PopPanel"
+                            BackgroundCssClass = "modalBackground"
+                            DropShadow="true"
+                            OkControlID="OkBtn"
+                            OnOkScript=""
+                            CancelControlID = "CancelBtn"
+                            PopupDragHandleControlID="PopPanelHandle" />
 
-                    </ajaxToolkit:PopupControlExtender>--%>
+                        <asp:Panel ID="PopPanel" runat="server" CssClass="mymodal" role="dialog" Style="display: none">
+                            <div class="container">
+                                <table>
+                                    <tr>
+                                        <h1><asp:Label ID="LblPaymentMsg" runat="server" Text="Plese select and fill the payment type"></asp:Label></h1>
+                                    </tr>
+                                    <tr>
+                                        <th><asp:RadioButtonList ID="RBLPaymenttype" runat="server" >
+                                        <asp:ListItem>Credit</asp:ListItem>
+                                        <asp:ListItem>ETFPOS</asp:ListItem>
+                                        <asp:ListItem>Saving</asp:ListItem>
+                                        </asp:RadioButtonList></th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <asp:Label ID="LblCH" runat="server" Text="Card holder"></asp:Label>
+                                        </th>
+                                        <th>
+                                            <asp:TextBox runat="server" ></asp:TextBox>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <asp:Label ID="LblCN" runat="server" Text="Card number"></asp:Label>
+                                        </th>
+                                        <th>
+                                            <asp:TextBox runat="server"></asp:TextBox>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <asp:Label ID="LblSC" runat="server" Text="Secure code"></asp:Label>
+                                        </th>
+                                        <th>
+                                            <asp:TextBox runat="server"></asp:TextBox>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <asp:Button ID="OkBtn" runat="server" Text="OK" class="btn btn-success" />
+                                        </th>
+                                        <th>
+                                            <asp:Button ID="CancelBtn" runat="server" Text="Cancel" class="btn btn-success"/>
+                                        </th>
+                                    </tr>                                   
+                                </table>
+                             </div>
+                            <div></div>
+                        </asp:Panel>
+
                         <%-- popup --%>
 
                     </ContentTemplate>
