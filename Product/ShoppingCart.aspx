@@ -5,11 +5,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
         <div class="container">
-        <div class="jumbotron">
-             <h1>Shopping Cart</h1>
-              <p>List</p> 
-        </div>
-         <div class="row"> 
+            <div class="jumbotron">
+                <h1>Shopping Cart</h1>
+                <p>List</p> 
+            </div>
+            <div class="row"> 
                  <asp:UpdatePanel ID="udpShoppingCart" runat="server">
 
                     <ContentTemplate>
@@ -120,64 +120,72 @@
                             </asp:TableRow>
                         </asp:Table>--%>
 
-                        <asp:Button ID="BtnCheckout" CssClass="btn btn-primary" runat="server" Text="Checkout" OnClick="OnClick_Checkout"/>                          
+                        <asp:Button ID="BtnCheckout" CssClass="btn btn-primary" runat="server" Text="Checkout"/>                          
                         <%-- popup --%>
                         <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtenderCheckout" runat="server"
                             TargetControlID ="BtnCheckout"
                             PopupControlID = "PopPanel"
                             BackgroundCssClass = "modalBackground"
-                            DropShadow="true"
-                            OkControlID="OkBtn"
-                            OnOkScript=""
-                            CancelControlID = "CancelBtn"
+                            DropShadow="true"                                                        
                             PopupDragHandleControlID="PopPanelHandle" />
 
                         <asp:Panel ID="PopPanel" runat="server" CssClass="mymodal" role="dialog" Style="display: none">
                             <div class="container">
-                                <table>
-                                    <tr>
-                                        <h1><asp:Label ID="LblPaymentMsg" runat="server" Text="Plese select and fill the payment type"></asp:Label></h1>
-                                    </tr>
-                                    <tr>
-                                        <th><asp:RadioButtonList ID="RBLPaymenttype" runat="server" >
-                                        <asp:ListItem>Credit</asp:ListItem>
-                                        <asp:ListItem>ETFPOS</asp:ListItem>
-                                        <asp:ListItem>Saving</asp:ListItem>
-                                        </asp:RadioButtonList></th>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <asp:Label ID="LblCH" runat="server" Text="Card holder"></asp:Label>
-                                        </th>
-                                        <th>
-                                            <asp:TextBox runat="server" ></asp:TextBox>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <asp:Label ID="LblCN" runat="server" Text="Card number"></asp:Label>
-                                        </th>
-                                        <th>
-                                            <asp:TextBox runat="server"></asp:TextBox>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <asp:Label ID="LblSC" runat="server" Text="Secure code"></asp:Label>
-                                        </th>
-                                        <th>
-                                            <asp:TextBox runat="server"></asp:TextBox>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <asp:Button ID="OkBtn" runat="server" Text="OK" class="btn btn-success" />
-                                        </th>
-                                        <th>
-                                            <asp:Button ID="CancelBtn" runat="server" Text="Cancel" class="btn btn-success"/>
-                                        </th>
-                                    </tr>                                   
-                                </table>
+                                <div class="jumbotron">
+                                    <h1><asp:Label ID="LblPaymentMsg" runat="server" Text="Payment Summary"></asp:Label></h1>
+                                </div>                                
+                                <div class="container">
+                                    <f class="double"><asp:Label ID="LabelMsgPop" runat="server"><%="Total cost: $ "+LbGrandTotal.Text.ToString()%></asp:Label></f>
+                                    <table class="payinfo">
+                                        <tr>                                            
+                                            <th>
+                                                <asp:RadioButtonList ID="RBLPaymenttype" runat="server" RepeatDirection="Horizontal">
+                                                <asp:ListItem Selected="True" Text="Master" Value="0"></asp:ListItem>
+                                                <asp:ListItem Text="VISA" Value="1"></asp:ListItem>
+                                                <asp:ListItem Text="AMX" Value="2"></asp:ListItem>
+                                                </asp:RadioButtonList>
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <asp:Label ID="LblHN" runat="server" Text="Holder name"></asp:Label>
+                                            </th>
+                                            <th>
+                                                <asp:TextBox ID="holderName" runat="server" ></asp:TextBox>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <asp:Label ID="LblCN" runat="server" Text="Card number"></asp:Label>
+                                            </th>
+                                            <th>
+                                                <asp:TextBox ID="cardNumber" runat="server"></asp:TextBox>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <asp:Label ID="LblSC" runat="server" Text="CVV/CSC"></asp:Label>
+                                            </th>
+                                            <th>
+                                                <asp:TextBox ID="cVVNumber"  runat="server"></asp:TextBox>
+                                            </th>
+                                        </tr>
+                                        <tr>   
+                                            <th>                        
+                                                <asp:Label ID="LblExprie" runat="server" Text="Expiry date"></asp:Label>
+                                            </th>
+                                            <th>
+                                                <asp:DropDownList ID="DropDownListMonth" runat="server" ></asp:DropDownList><asp:DropDownList ID="DropDownListYear" runat="server"></asp:DropDownList>
+                                            </th>
+                                        </tr>                                        
+                                    </table>
+                                    <div><asp:Label ID="LabelNoteMsg" runat="server" Text=""></asp:Label>                            </div>
+                                    <div>
+                                        <asp:Button ID="OkBtn" runat="server" Text="OK" OnClick= "startPurchase" class="btn btn-success" />
+                                        <asp:Button ID="CancelBtn" runat="server" Text="Cancel" class="btn btn-success"/>
+                                    </div>
+                                </div>
                              </div>
                             <div></div>
                         </asp:Panel>

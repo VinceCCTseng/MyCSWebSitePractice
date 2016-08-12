@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -16,9 +17,14 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
             if (Session[_currentShoppingList] != null)
             {
                 BindData();
-                CalTotalPrice(this,null);
+                CalTotalPrice(this, null);
                 TblDetailCost.Visible = true;
                 BtnCheckout.Visible = true;
+                for (int i = 0; i < 12; i++)
+                {
+                    DropDownListYear.Items.Insert(i, new ListItem((2016 + i).ToString(), (2016 + i).ToString()));
+                    DropDownListMonth.Items.Insert(i, new ListItem((1 + i).ToString(), (1 + i).ToString()));
+                }
             }
             else
             {
@@ -129,5 +135,63 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
             BtnCheckout.Visible = false;
         }
 
+    }
+
+    public void startPurchase(object sender, EventArgs e)
+    {
+        int errorcode = 0;
+        //data vaildataion
+        //1. name
+        if (Regex.IsMatch(holderName.Text, @"^[a-zA-Z\s]+$") && holderName.Text.Length > 5 && holderName.Text.Length < 100)
+        { }
+        else
+        {
+            errorcode = 1;
+            goto ErrorProgress;
+        }
+        //2. card
+        if (Regex.IsMatch(cardNumber.Text, @"^[0-9]+$") && cardNumber.Text.Length == 12)
+        { }
+        else
+        {
+            errorcode = 2;
+            goto ErrorProgress;
+        }
+        //3. CVV
+        if (Regex.IsMatch(cVVNumber.Text, @"^[0-9]+$") && cVVNumber.Text.Length == 3)
+        { }
+        else
+        {
+            errorcode = 4;
+            goto ErrorProgress;
+        }
+        // Step 2: try to auth
+        errorcode=mockApiConnectAndPay(RBLPaymenttype.SelectedValue.ToString(), holderName.Text, cardNumber.Text, cVVNumber.Text, DropDownListMonth.Text, DropDownListYear.Text, double.Parse(LbGrandTotal.Text));
+
+        // Step 3:Redirection to complete page without error code, otherwise go back and show error.
+        if (errorcode == 0)
+        {
+            // Update into Database
+
+            // Redirect to complete
+            Response.Redirect("~/Default.aspx");
+        }
+        // exception
+        ErrorProgress:
+        // 1: name, 2: card number, 3: 
+        if(errorcode != 0)
+            Master.showMessages("Error Message", "Error code:\t"+ errorcode);
+    }
+    public int mockApiConnectAndPay(string _type,string _name, string _cardnumber, string _cvv, string _month, string _year, double _totalfee)
+    {
+        int retCode = 0;
+        // 8： card info error, 16: purchase deny, 32: transaction fail
+        //---------------------hard code test
+        int[] sampleerrorcode = new int[] {0, 8, 16, 32};
+        Random rnd = new Random();
+        retCode = sampleerrorcode[rnd.Next(0, 3)];
+        //retCode=0;
+        //---------------------
+        return retCode;
     }
 }

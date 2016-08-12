@@ -1,8 +1,9 @@
 ﻿.modalBackground{
     background-color:grey;
     filter: alpha(opacity=70);
-    opacity: 0.9;
+    opacity: 0.7;
 }
+
 .mymodal {
     background-color:azure;
 }
@@ -11,4 +12,23 @@
     background: #333;
     border: 1px solid #555;
     color: #EEE;
+}
+/* frame */
+f.double {
+    border-style:double;
+    border-width:medium;
+    font-weight:bold;
+    font-size:xx-large;
+}
+f.underline {
+    border-bottom:solid;
+}
+/* table*/
+table.payinfo, th.payinfo, td.payinfo {
+    border:solid;
+    font-size:large;
+}
+/*Let radioButtonList display on a line*/
+.radioButtonList label{
+    display:inline;
 }
