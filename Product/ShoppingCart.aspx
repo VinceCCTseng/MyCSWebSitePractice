@@ -135,7 +135,25 @@
                                     <h1><asp:Label ID="LblPaymentMsg" runat="server" Text="Payment Summary"></asp:Label></h1>
                                 </div>                                
                                 <div class="container">
-                                    <f class="double"><asp:Label ID="LabelMsgPop" runat="server"><%="Total cost: $ "+LbGrandTotal.Text.ToString()%></asp:Label></f>
+                                    <asp:Label ID="LabelMsgPop" runat="server"><f class="double"><%="Total cost: $ "+LbGrandTotal.Text.ToString()%></f></asp:Label>
+                                    <table class="payinfo">
+                                        <tr>
+                                            <th>
+                                                <asp:Label ID="LblCustomerName" runat="server" Text="Name"></asp:Label>
+                                            </th>
+                                            <th>
+                                                <asp:TextBox ID="TextBoxCustomerName" runat="server"></asp:TextBox>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <asp:Label ID="LblCustomerAddress" runat="server" Text="Address"></asp:Label>
+                                            </th>
+                                            <th>
+                                                <asp:TextBox ID="TextBoxAddress" runat="server"></asp:TextBox>
+                                            </th>
+                                        </tr>
+                                    </table>
                                     <table class="payinfo">
                                         <tr>                                            
                                             <th>
@@ -149,7 +167,7 @@
                                         </tr>
                                         <tr>
                                             <th>
-                                                <asp:Label ID="LblHN" runat="server" Text="Holder name"></asp:Label>
+                                                <asp:Label ID="LblHN" runat="server" Text="Card holder"></asp:Label>
                                             </th>
                                             <th>
                                                 <asp:TextBox ID="holderName" runat="server" ></asp:TextBox>
@@ -184,6 +202,8 @@
                                     <div>
                                         <asp:Button ID="OkBtn" runat="server" Text="OK" OnClick= "startPurchase" class="btn btn-success" />
                                         <asp:Button ID="CancelBtn" runat="server" Text="Cancel" class="btn btn-success"/>
+                                    </div>
+                                    <div>&nsnp
                                     </div>
                                 </div>
                              </div>

@@ -6,8 +6,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 
-//namespace MyWebSitePractice1
-//{
 public class sqlAccess
     {
         // Create variable for this class
@@ -433,11 +431,17 @@ public class sqlAccess
                 // TODO: SQL issue
             }
         }
-        //III-2. Get product
-        //III-3. Update
-        //III-4. Insert 
-        //III-5. Delete 
-        //III-6. Search 
+    //III-2. Get product
+    //III-3. Update
+    //III-4. Insert 
+    //III-5. Delete 
+    //III-6. Search 
+    /*-----------------------------------[S]IV Order and orderproduct -----------------------------------*/
+    //IV-1. Insert into order
+    //IV-2. Get the order id
+    //IV-3. Insert into orderproduct
 
-    }
-//}
+    //IV-4. serch order
+
+    /*-----------------------------------[E]IV Order and orderproduct -----------------------------------*/
+}

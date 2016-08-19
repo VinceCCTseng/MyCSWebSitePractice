@@ -172,6 +172,11 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
         if (errorcode == 0)
         {
             // Update into Database
+            //1. insert into order
+            DateTime today = DateTime.Today;
+
+                //2. check the order id 
+                //3. insert the num into order product
 
             // Redirect to complete
             Response.Redirect("~/Default.aspx");
