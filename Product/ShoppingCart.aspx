@@ -153,6 +153,14 @@
                                                 <asp:TextBox ID="TextBoxAddress" runat="server"></asp:TextBox>
                                             </th>
                                         </tr>
+                                        <tr>
+                                            <th>
+                                                <asp:Label ID="LblPhone" runat="server" Text="Phone"></asp:Label>
+                                            </th>
+                                            <th>
+                                                <asp:TextBox ID="TextBoxPhone" runat="server"></asp:TextBox>
+                                            </th>
+                                        </tr>
                                     </table>
                                     <table class="payinfo">
                                         <tr>                                            

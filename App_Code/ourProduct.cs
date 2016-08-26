@@ -56,6 +56,18 @@ public class ourProduct
         }
 
     }
+    //19082016 add for the order function
+    public int Qty
+    {
+        get
+        {
+            return _qty;
+        }
+        set
+        {
+            _qty = value;
+        }
+    }
     public string SerialNumber
     {
         get
@@ -137,7 +149,7 @@ public class ourProduct
     // Todo Update
 }
 
-public class ourProductlist : ourProduct
+public class ourProductlist 
 {
     private BindingList<ourProduct> _ourProductlist;
     //constructer
@@ -170,5 +182,10 @@ public class ourProductlist : ourProduct
     public int getProductCount()
     {
         return _ourProductlist.Count;
+    }
+
+    public void setQty(int _index,int  _qty)
+    {
+        _ourProductlist[_index].Qty = _qty;
     }
 }

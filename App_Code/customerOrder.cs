@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 /// CO is mainly for the orders, which has already done. (retrieve usage)
 /// </summary>
-public class customerOrder
+public class CustomerOrder 
 {
     // internal variables - for 
     private int _orderId;       //              + Not Null
@@ -21,7 +21,7 @@ public class customerOrder
     private string _commend;   
     private ourProductlist _ourshoppinglist;
 
-    public customerOrder()
+    public CustomerOrder()
     {
         // Constructor: set up default value
         _orderId = 0;
@@ -43,6 +43,84 @@ public class customerOrder
         return true;
     }
 
+    public Boolean removeItemtoOrder(ourProduct aproduct)
+    {
+        _ourshoppinglist.removeProduct(aproduct);
+        return true;
+    }
 
+    public string OrderDate  //              + Not Null
+    {
+        get
+        { return _orderDate; }
+        set
+        { _orderDate = value; }
+    }
 
+    public string OrderName// 50 chars     + Not Null  
+    {
+        get { return _orderName; }
+        set {
+            if(value.Length <=50 && value !=null)
+            _orderName = value;
+        }
+    }
+    public string MemberID   // 20 chars 
+    {
+        get { return _memberID; }
+        set { } // ToDo
+    }
+
+    public string Phone// 10 chars     + Not Null
+    {
+        get { return _phone; }
+        set {
+            if (value.Length == 10 && value != null)
+                _phone = value;
+        }
+    }
+
+    public string Address    // 100 chars    + Not Null
+    {
+        get { return _address; }
+        set {
+            if (value.Length <= 100 && value != null)
+                _address = value;
+        }
+    }
+    
+    public int TotalCost     //              + Not Null
+    {
+        get { return _totalCost; }
+        set {
+            if (value >0 && value<65535)
+                _totalCost = value;
+        }
+    }
+
+    public int PostFee       // ""
+    {
+        get { return _postFee; }
+        set {
+            if (value > 0 && value < 65535)
+                _postFee = value;
+            }
+    }
+
+    public string PostDate   // Date
+    {
+        get { return _postDate; }
+        set {
+            if (value != null)
+                _postDate = value;
+            }
+    }
+    public string Commend
+    {
+        get { return _commend; }
+        set {
+            if (value != null)
+                _commend = value;
+            }
+    }
 }

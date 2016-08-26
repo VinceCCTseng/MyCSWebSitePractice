@@ -15,8 +15,33 @@ public class sqlAccess
         public const string CUSTOMERID = "customerid", FRISTNAME = "firstname", LASTNAME = "lastname", EMAIL = "email", WEBSITE = "website", DOB = "dob", LOYALTYMEMBER = "loyaltymember", PHONE = "phone", MOBILE = "mobile", FAX = "fax";
         public const string P_ID = "product_Id", P_SERIALNUMBER = "product_SerialNumber", P_NAME = "product_Name", P_PRICE = "product_Price", P_IMAGELINK = "product_Imagelink", P_CATEGORY = "product_Category", P_COLOR = "product_color", P_COMMENT = "product_comment";
 
-        // Constructor - to connect database once using salAccess class 
-        public sqlAccess()
+        // 19082016 for order usage
+        //public const int ORDERID =1, ODATE = 2, ONAME = 3, OMEMBER = 4, OPHONE = 5, OADDRESS = 6, OGRAND = 7, OPOSTFEE = 8, OPOSTDATE= 9,   UFAX = 10;
+        enum ORDERITEM
+        {
+            ORDERID =1,
+            ODATE = 2,
+            ONAME = 3,
+            OMEMBER = 4,
+            OPHONE = 5,
+            OADDRESS = 6,
+            OGRAND = 7,
+            OPOSTFEE = 8,
+            OPOSTDATE= 9,
+            PRODUCTID = 10,
+            PRODUCTQTY = 11
+        }
+        public const string  ORDERID = "order_ID", ODATE = "order_Date", ONAME = "order_Name", OMEMBER = 4,
+            OPHONE = 5,
+            OADDRESS = 6,
+            OGRAND = 7,
+            OPOSTFEE = 8,
+            OPOSTDATE = 9,
+            PRODUCTID = 10,
+            PRODUCTQTY = 11
+        }
+    // Constructor - to connect database once using salAccess class 
+    public sqlAccess()
         {
         //conn = new SqlConnection(@"Data Source=VINCE-PC\SQLEXPRESS;Initial Catalog=customerdatabase;Integrated Security=True;MultipleActiveResultSets=True");  
         //localhost
@@ -437,7 +462,100 @@ public class sqlAccess
     //III-5. Delete 
     //III-6. Search 
     /*-----------------------------------[S]IV Order and orderproduct -----------------------------------*/
+
     //IV-1. Insert into order
+    public Boolean SaveOrder(int customerid, int updateitemid, string itemdetail)
+    {
+
+        var sqlupdatecustomer = "";
+        switch (updateitemid)
+        {
+            case UFIRSTNAME:
+                sqlupdatecustomer = "UPDATE customer SET firstname = @_FirstName WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_FirstName", itemdetail);
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+            case ULASTNAME:
+                sqlupdatecustomer = "UPDATE customer SET lastname = @_LastName WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_LastName", itemdetail);
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+            case UEMAIL:
+                sqlupdatecustomer = "UPDATE customer SET email = @_Email WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_Email", itemdetail);
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+            case UWEBSITE:
+                sqlupdatecustomer = "UPDATE customer SET website = @_Website WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_Website", itemdetail);
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+            case UDOB:
+                //sqlupdatecustomer = "UPDATE customer SET dob = @_Dob WHERE customerid=@_Customerid;";
+                sqlupdatecustomer = "UPDATE customer SET dob = CONVERT( DATETIME , @_Dob ,105 ) WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_Dob", itemdetail);
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+            case ULOYALTYMEMBER:
+                sqlupdatecustomer = "UPDATE customer SET loyaltymember = @_LoyaltyMember WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_LoyaltyMember", (itemdetail.CompareTo("true") == 0 ? 1 : 0));
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+            case UPHONE:
+                sqlupdatecustomer = "UPDATE customer SET phone = @_Phone WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_Phone", itemdetail);
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+            case UMOBILE:
+                sqlupdatecustomer = "UPDATE customer SET mobile = @_mobile WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_mobile", itemdetail);
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+            case UFAX:
+                sqlupdatecustomer = "UPDATE customer SET fax = @_Fax WHERE customerid=@_Customerid;";
+                using (var cmd = new SqlCommand(sqlupdatecustomer, conn))
+                {
+                    cmd.Parameters.AddWithValue("@_Fax", itemdetail);
+                    cmd.Parameters.AddWithValue("@_Customerid", customerid);
+                    cmd.ExecuteNonQuery();
+                }
+                break;
+        }
+
+        return true;
+    }
     //IV-2. Get the order id
     //IV-3. Insert into orderproduct
 

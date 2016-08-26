@@ -91,7 +91,8 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
             // prevent negative value.
             if (int.Parse(tb.Text) < 1)
                 tb.Text = "1";
-
+            // 19082016 update the qty
+            ashoppinglist.setQty(i, int.Parse(tb.Text));
             totalcost += double.Parse(gvShopping.DataKeys[i].Values["Price"].ToString()) * int.Parse(tb.Text.ToString());
         }
         Session[_totalCost] = totalcost;
@@ -104,6 +105,8 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
         LbDeliFee.Text = "20.00";
         LbGrandTotal.Text = (totalcost + double.Parse(LbDeliFee.Text)).ToString();
 
+        // III. update the currentShoppingList
+        Session[_currentShoppingList] = ashoppinglist;
     }
     //
     protected void gvShopping_QTYUpdated(object sender, EventArgs e)
@@ -171,12 +174,23 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
         // Step 3:Redirection to complete page without error code, otherwise go back and show error.
         if (errorcode == 0)
         {
-            // Update into Database
-            //1. insert into order
+            CustomerOrder customerOrder = new CustomerOrder();
             DateTime today = DateTime.Today;
+            ourProductlist ashoppinglist = (ourProductlist)Session[_currentShoppingList];
+            // Update into Database
+            //1. insert into order 19082016
+            customerOrder.OrderDate = today.Day.ToString() +today.Month.ToString()+today.Year.ToString();
+            customerOrder.OrderName = TextBoxCustomerName.Text.ToString();
+            customerOrder.Phone = TextBoxPhone.Text.ToString();
+            customerOrder.Address = TextBoxAddress.Text.ToString();
+            customerOrder.TotalCost = int.Parse(LbGrandTotal.ToString());
+            customerOrder.PostFee = int.Parse(LbDeliFee.ToString());
 
-                //2. check the order id 
-                //3. insert the num into order product
+            //accsql
+
+            //2. check the order id 
+
+            //3. insert the num into order product
 
             // Redirect to complete
             Response.Redirect("~/Default.aspx");
@@ -195,7 +209,6 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
         int[] sampleerrorcode = new int[] {0, 8, 16, 32};
         Random rnd = new Random();
         retCode = sampleerrorcode[rnd.Next(0, 3)];
-        //retCode=0;
         //---------------------
         return retCode;
     }
