@@ -211,7 +211,7 @@
                                         <asp:Button ID="OkBtn" runat="server" Text="OK" OnClick= "startPurchase" class="btn btn-success" />
                                         <asp:Button ID="CancelBtn" runat="server" Text="Cancel" class="btn btn-success"/>
                                     </div>
-                                    <div>&nsnp
+                                    <div>
                                     </div>
                                 </div>
                              </div>

@@ -149,7 +149,7 @@ public class ourProduct
     // Todo Update
 }
 
-public class ourProductlist 
+public class ourProductlist :ourProduct
 {
     private BindingList<ourProduct> _ourProductlist;
     //constructer

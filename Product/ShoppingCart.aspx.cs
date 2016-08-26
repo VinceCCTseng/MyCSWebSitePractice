@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -153,7 +155,7 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
             goto ErrorProgress;
         }
         //2. card
-        if (Regex.IsMatch(cardNumber.Text, @"^[0-9]+$") && cardNumber.Text.Length == 12)
+        if (Regex.IsMatch(cardNumber.Text, @"^[0-9]+$") && cardNumber.Text.Length == 16)
         { }
         else
         {
@@ -169,31 +171,52 @@ public partial class Product_ShoppingCart : System.Web.UI.Page
             goto ErrorProgress;
         }
         // Step 2: try to auth
-        errorcode=mockApiConnectAndPay(RBLPaymenttype.SelectedValue.ToString(), holderName.Text, cardNumber.Text, cVVNumber.Text, DropDownListMonth.Text, DropDownListYear.Text, double.Parse(LbGrandTotal.Text));
+        errorcode = 0;//mockApiConnectAndPay(RBLPaymenttype.SelectedValue.ToString(), holderName.Text, cardNumber.Text, cVVNumber.Text, DropDownListMonth.Text, DropDownListYear.Text, double.Parse(LbGrandTotal.Text));
 
         // Step 3:Redirection to complete page without error code, otherwise go back and show error.
         if (errorcode == 0)
         {
+            int oId = -1, err = 0;
             CustomerOrder customerOrder = new CustomerOrder();
             DateTime today = DateTime.Today;
             ourProductlist ashoppinglist = (ourProductlist)Session[_currentShoppingList];
             // Update into Database
             //1. insert into order 19082016
-            customerOrder.OrderDate = today.Day.ToString() +today.Month.ToString()+today.Year.ToString();
+            customerOrder.OrderDate = today.Year.ToString()+"-"+ today.Month.ToString()+"-"+ today.Day.ToString();
             customerOrder.OrderName = TextBoxCustomerName.Text.ToString();
             customerOrder.Phone = TextBoxPhone.Text.ToString();
             customerOrder.Address = TextBoxAddress.Text.ToString();
-            customerOrder.TotalCost = int.Parse(LbGrandTotal.ToString());
-            customerOrder.PostFee = int.Parse(LbDeliFee.ToString());
+            customerOrder.TotalCost = double.Parse(LbGrandTotal.Text.ToString());
+            customerOrder.PostFee = double.Parse(LbDeliFee.Text.ToString());
 
-            //accsql
-
+            sqlAccess sqlInsertOrder = new sqlAccess(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            try
+            {
+                //accsql
+                oId = sqlInsertOrder.InsertAnOrder(customerOrder.OrderDate, customerOrder.OrderName, customerOrder.Phone, customerOrder.Address, customerOrder.PostFee, customerOrder.TotalCost);
+            }
+            catch
+            {
+               //errorhandeler
+            }
             //2. check the order id 
-
-            //3. insert the num into order product
-
-            // Redirect to complete
-            Response.Redirect("~/Default.aspx");
+            for (int i = 0; i < ashoppinglist.getProductCount(); i++)
+            {
+                try
+                {
+                    //ourProduct tempproduct = (ourProduct) ashoppinglist.getProductdetail(i);
+                    sqlInsertOrder.InsertAProOfAnOrd(oId, ashoppinglist.getProductdetail(i).Id, ashoppinglist.getProductdetail(i).Qty);
+                }
+                catch
+                { }
+            }
+            if(err==0)
+            {
+                ashoppinglist = null;
+                Session[_currentShoppingList] = ashoppinglist;
+                Master.showMessages("Message", "The process has been done! :)");
+                //Response.Redirect("~", true);
+            }                                   
         }
         // exception
         ErrorProgress:

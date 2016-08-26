@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -15,8 +16,8 @@ public class CustomerOrder
     private string _memberID;   // 20 chars 
     private string _phone;      // 10 chars     + Not Null
     private string _address;    // 100 chars    + Not Null
-    private int _totalCost;     //              + Not Null
-    private int _postFee;       // ""
+    private double _totalCost;     //              + Not Null
+    private double _postFee;       // ""
     private string _postDate;   // Date
     private string _commend;   
     private ourProductlist _ourshoppinglist;
@@ -47,6 +48,11 @@ public class CustomerOrder
     {
         _ourshoppinglist.removeProduct(aproduct);
         return true;
+    }
+    // getlist
+    public BindingList<ourProduct> getOrderProductlist()
+    {
+        return _ourshoppinglist.getProductlist();
     }
 
     public string OrderDate  //              + Not Null
@@ -89,7 +95,7 @@ public class CustomerOrder
         }
     }
     
-    public int TotalCost     //              + Not Null
+    public double TotalCost     //              + Not Null
     {
         get { return _totalCost; }
         set {
@@ -98,7 +104,7 @@ public class CustomerOrder
         }
     }
 
-    public int PostFee       // ""
+    public double PostFee       // 
     {
         get { return _postFee; }
         set {
